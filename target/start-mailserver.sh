@@ -467,6 +467,9 @@ function _setup_postfix_hostname() {
 	notify 'inf' "Applying hostname to /etc/postfix/main.cf"
 	postconf -e "myhostname = $HOSTNAME"
 	postconf -e "mydomain = $DOMAINNAME"
+	if ( "$HOSTNAME" == "$DOMAINNAME" ); then
+		postconf -e 'mydestination = localhost.$mydomain, localhost'
+	fi
 }
 
 function _setup_dovecot_hostname() {
