@@ -465,9 +465,12 @@ function _setup_postfix_hostname() {
 	notify 'task' 'Applying hostname and domainname to Postfix'
 
 	notify 'inf' "Applying hostname to /etc/postfix/main.cf"
+	notify 'inf' "Hostname: $HOSTNAME"
 	postconf -e "myhostname = $HOSTNAME"
+	notify 'inf' "mydomain: $DOMAINNAME"
 	postconf -e "mydomain = $DOMAINNAME"
 	if ( "$HOSTNAME" == "$DOMAINNAME" ); then
+		notify 'inf' "Updating mydestination"
 		postconf -e 'mydestination = localhost.$mydomain, localhost'
 	fi
 }
