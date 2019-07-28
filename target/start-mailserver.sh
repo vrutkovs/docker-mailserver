@@ -469,10 +469,8 @@ function _setup_postfix_hostname() {
 	postconf -e "myhostname = $HOSTNAME"
 	notify 'inf' "mydomain: $DOMAINNAME"
 	postconf -e "mydomain = $DOMAINNAME"
-	if [ "$HOSTNAME" == "$DOMAINNAME" ]; then
-		notify 'inf' "Updating mydestination"
-		postconf -e 'mydestination = localhost.$mydomain, localhost'
-	fi
+	notify 'inf' "Updating mydestination"
+	postconf -e 'mydestination = localhost.$mydomain, localhost'
 }
 
 function _setup_dovecot_hostname() {
