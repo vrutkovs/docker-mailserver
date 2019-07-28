@@ -524,6 +524,8 @@ function _setup_postfix_hostname() {
 	notify 'inf' "Applying hostname to /etc/postfix/main.cf"
 	postconf -e "myhostname = $HOSTNAME"
 	postconf -e "mydomain = $DOMAINNAME"
+	notify 'inf' "Updating mydestination"
+	postconf -e 'mydestination = localhost.$mydomain, localhost'
 }
 
 function _setup_dovecot_hostname() {
